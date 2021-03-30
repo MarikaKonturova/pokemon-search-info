@@ -10,7 +10,7 @@ function App(props: any) {
 <Switch>
   <Route exact path={'/'}  render={()=><Pokedex history={props.history}/>}/>
 
-  <Route exact path={'/:pokemonId'}  render={( RouteComponentProps)=><Pokemon {...RouteComponentProps}/>}/>
+  <Route exact path={'/:pokemonId'}  render={( RouteComponentProps)=><Pokemon {...RouteComponentProps} history={props.history}/>}/>
 </Switch>
     </div>
   );

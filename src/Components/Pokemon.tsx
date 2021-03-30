@@ -1,23 +1,35 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {RouteComponentProps} from 'react-router-dom'
-import {InitialState} from "../mockData";
-import {Link, Typography} from "@material-ui/core";
+import {Button, CircularProgress, Link, Typography} from "@material-ui/core";
 import {toFirstCharUppercase} from "../Constans";
+import axios from "axios";
+import {PokemonType, PokemonType2} from "../mockData";
 
 export type PathParamsType = {
     pokemonId: string
+    history: any
 }
 type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 type OwnPropsType = {}
 
 export const Pokemon = (props: PropsType) => {
-    /*const {match} = props;
-    const {params} = match;
-    const {pokemonId} = params;*/
     const pokemonId = props.match.params.pokemonId
-    const [pokemon, setPokemon] = useState(InitialState[`${pokemonId}`])
+    const [pokemon, setPokemon] = useState(undefined)
+
+    useEffect(() => {
+        axios
+            .get(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+            .then(function (response) {
+                const {data} = response
+                setPokemon(data)
+            })
+            .catch(function (error) {
+                setPokemon(false)
+            })
+    }, [pokemonId])
 
     const generatePokemonJSX = () => {
+        if(pokemon) {
         const {name, id, species, height, weight, types, sprites} = pokemon
         const fullImageUrl = `https://pokeres.bastionbot.org/images/pokemon/${id}.png`
         const {front_default} = sprites;
@@ -37,19 +49,24 @@ export const Pokemon = (props: PropsType) => {
                 <Typography> Height: {height}</Typography>
                 <Typography> Weight: {weight}</Typography>
                 <Typography variant='h6'> Types: {
-                    types.map(typeInfo=>{
-                        const {type} = typeInfo
-                        const {name} = type
+                    types.map(typeInfo => {
+                        const {name} = typeInfo.type.name
                         return <Typography key={name}>{name}</Typography>
                     })
                 }</Typography>
             </>
         )
     }
+    }
 
     return (
         <>
-            {generatePokemonJSX()}
+            {pokemon === undefined && <CircularProgress/>}
+            {pokemon !== undefined && pokemon && generatePokemonJSX()}
+            {pokemon === false && <Typography> Pokemon not found </Typography>}
+            <Button variant={'contained'} onClick={() => props.history.push('/')}>
+                back to pokedex
+            </Button>
         </>
     )
 }
