@@ -8,7 +8,7 @@ type typesPokemonType = {
 export type PokemonType = {
     id: number
     name: string
-    sprite: string // это я выдумала для Pokedex (~50-60 строка)
+    // sprite?: string // это я выдумала для Pokedex (~50-60 строка)
     base_experience?: number
     height: number
     is_default?: boolean
