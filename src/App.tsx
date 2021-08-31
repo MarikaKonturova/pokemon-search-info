@@ -9,7 +9,7 @@ function App(props: any) {
         <div className="App">
             <Switch>
                 <Route exact path={'/'} render={() => <Pokedex />}/>
-                <Route path={'/:pokemonId'} render={() => <Pokemon />}/>
+                <Route path={'/pokedex/:pokemonId'} render={() => <Pokemon />}/>
             </Switch>
         </div>
     );
