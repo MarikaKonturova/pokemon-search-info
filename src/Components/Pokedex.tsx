@@ -11,8 +11,8 @@ import {
     Typography
 } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import {makeStyles, fade} from "@material-ui/core/styles"
-import {InitialState, InitialStateType, PokemonType} from "../mockData";
+import {fade, makeStyles} from "@material-ui/core/styles"
+import {PokemonType} from "../mockData";
 import {toFirstCharUppercase} from "../Constans";
 import axios from "axios";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -57,20 +57,19 @@ type pokemonDataType = {
 
 }
 
- type PathParamsType = {
-}
- type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
+type PathParamsType = {}
+type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
 type OwnPropsType = {
     history: History
 }
 
-export const Pokedex =  withRouter((props: PropsType) => {
+export const Pokedex = withRouter((props: PropsType) => {
 
     const classes = useStyles();
     const [pokemonData, setPokemonData] = useState<pokemonDataType>({});
     const [filter, setFilter] = useState<string>('');
 
-    const handleSearchChange = (e: ChangeEvent<HTMLInputElement>)=>{
+    const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFilter((e.currentTarget.value).toLowerCase())
     }
     useEffect(() => {
@@ -80,13 +79,14 @@ export const Pokedex =  withRouter((props: PropsType) => {
                 const {results} = response.data
                 let newPokemonData = {} as pokemonDataType;
                 results.forEach((pokemon: PokemonType, index: number) => {
-                    newPokemonData = {...newPokemonData, [index + 1]: {
+                    newPokemonData = {
+                        ...newPokemonData, [index + 1]: {
                             id: index + 1,
                             name: pokemon.name,
                             sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
-                        }}
+                        }
+                    }
                 })
-                debugger
                 setPokemonData(newPokemonData)
             })
     }, [])
@@ -113,15 +113,16 @@ export const Pokedex =  withRouter((props: PropsType) => {
                 <Toolbar>
                     <div className={classes.searchContainer}>
                         <SearchIcon className={classes.searchIcon}/>
-                        <TextField onChange={handleSearchChange} className={classes.searchInput} label='Pokemon' variant='standard'/>
+                        <TextField onChange={handleSearchChange} className={classes.searchInput} label='Pokemon'
+                                   variant='standard'/>
                     </div>
                 </Toolbar>
             </AppBar>
             {pokemonData ?
                 <Grid container spacing={2} className={classes.pokedexContainer}>
                     {Object.keys(pokemonData).map((pokemonId) => {
-                       return pokemonData[+pokemonId].name.includes(filter) &&
-                       getPokemonCard(+pokemonId)
+                        return pokemonData[+pokemonId].name.includes(filter) &&
+                            getPokemonCard(+pokemonId)
                     })}
                 </Grid>
                 : <CircularProgress color={'primary'}/>}
