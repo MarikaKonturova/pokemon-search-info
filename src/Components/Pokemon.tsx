@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {RouteComponentProps, withRouter} from 'react-router-dom'
+import {Redirect, RouteComponentProps, withRouter} from 'react-router-dom'
 import {Button, CircularProgress, Link, Typography} from "@material-ui/core";
 import {toFirstCharUppercase} from "../Constans";
 import axios from "axios";
@@ -91,7 +91,7 @@ export const Pokemon = withRouter((props: PropsType) => {
         <>
             {pokemon !== undefined && pokemon && generatePokemonJSX()}
             {pokemon === false && <Typography> Pokemon not found </Typography>}
-            <Button variant={'contained'} onClick={() => props.history.push('/')}>
+            <Button variant={'contained'} onClick={() => <Redirect to="/pokedex"/>}>
                 back to pokedex
             </Button>
         </>

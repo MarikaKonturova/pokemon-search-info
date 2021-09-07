@@ -94,7 +94,7 @@ export const Pokedex = withRouter((props: PropsType) => {
 
         const {id, name, sprite} = pokemonData[pokemonId];
         return (<Grid item xs={4} key={pokemonId}>
-            <Card onClick={() => props.history.push(`/${pokemonId}`)}>
+            <Card onClick={() => props.history.push(`/pokedex/${pokemonId}`)}>
                 <CardContent className={classes.cardContent}>
                     <CardMedia
                         className={classes.cardMedia}
