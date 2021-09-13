@@ -91,7 +91,7 @@ export const Pokemon = withRouter((props: PropsType) => {
         <>
             {pokemon !== undefined && pokemon && generatePokemonJSX()}
             {pokemon === false && <Typography> Pokemon not found </Typography>}
-            <Button variant={'contained'} onClick={() => <Redirect to="/pokedex"/>}>
+            <Button variant={'contained'}  onClick={() => props.history.push(`/`)} >
                 back to pokedex
             </Button>
         </>
