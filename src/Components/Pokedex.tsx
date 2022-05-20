@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Pokeball from "../assets/icons/Pokeball.svg";
 import Sort from "../assets/icons/Sort.svg";
 import search from "../assets/icons/search.svg";
+import { useGetPokedexQuery } from "../services/pokedexApi";
 
 export const Pokedex = () => {
   const [sort, setSort] = useState<"ZtoA" | "AtoZ" | "">("");
@@ -17,27 +18,24 @@ export const Pokedex = () => {
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilter(e.currentTarget.value.toLowerCase());
   };
-  useEffect(() => {
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon?limit=50`)
-      .then(function (response) {
-        const { results } = response.data;
-        let newResults = results.map(
-          (pokemon: pokemonDataType, index: number) => {
-            return {
-              id: index + 1,
-              name: pokemon.name,
-              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                index + 1
-              }.png`,
-            };
-          }
-        );
 
-        setPokemonData(newResults);
-        console.log(newResults);
-      });
-  }, []);
+  const { data, isFetching } = useGetPokedexQuery("100");
+
+  useEffect(() => {
+   if (data) {
+      const  {results}  = data; 
+    let newResults = results.map((pokemon: pokemonDataType, index: number) => {
+      return {
+        id: index + 1,
+        name: pokemon.name,
+        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+          index + 1
+        }.png`,
+      };
+    });
+    setPokemonData(newResults);
+    console.log(newResults);}
+  }, [data]);
   let sortedPokemons = pokemonData;
 
   if (sort) {
@@ -56,7 +54,7 @@ export const Pokedex = () => {
     const { id, name, sprite } = pokemon;
     return (
       <>
-        <Link to={`/${id}`  }>
+        <Link to={`/${id}`}>
           <div className="pokedex-card">
             <h4 className="pokedex-card-id">{`#${id}`}</h4>
             <img src={sprite} alt="pokedex card" className="pokedex-card-img" />
@@ -68,6 +66,8 @@ export const Pokedex = () => {
       </>
     );
   };
+
+  if(isFetching)return <>Loading.....</>
 
   return (
     <>
@@ -113,10 +113,8 @@ export const Pokedex = () => {
           </div>
         </div>
       ) : (
-        <>Loading ...</>
+        <p>Loading ...</p>
       )}
     </>
   );
 };
-
-
