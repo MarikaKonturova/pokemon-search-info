@@ -1,131 +1,122 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
-import {
-    AppBar,
-    Card,
-    CardContent,
-    CardMedia,
-    CircularProgress,
-    Grid,
-    TextField,
-    Toolbar,
-    Typography
-} from "@material-ui/core";
-import SearchIcon from '@material-ui/icons/Search';
-import {fade, makeStyles} from "@material-ui/core/styles"
-import {PokemonType} from "../mockData";
-import {toFirstCharUppercase} from "../Constans";
+import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
+
+import { toFirstCharUppercase } from "../Constans";
 import axios from "axios";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import { pokemonDataType, TGeneratePokemonCard } from "../types";
+import { Link } from "react-router-dom";
+import Pokeball from "../assets/icons/Pokeball.svg";
+import Sort from "../assets/icons/Sort.svg";
+import search from "../assets/icons/search.svg";
 
+export const Pokedex = () => {
+  const [sort, setSort] = useState<"ZtoA" | "AtoZ" | "">("");
+  console.log("rerender");
+  const [pokemonData, setPokemonData] = useState<pokemonDataType[]>([]);
+  const [filter, setFilter] = useState<string>("");
 
-const useStyles = makeStyles(theme => ({
-    pokedexContainer: {
-        paddingTop: '20px',
-        paddingLeft: '50px',
-        paddingRight: '50px',
-    },
-    cardMedia: {
-        margin: 'auto' // to center the image in card
-    },
-    cardContent: {
-        textAlign: "center"
-    },
-    searchContainer: {
-        display: 'flex',
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        paddingLeft: '20px',
-        paddingRight: '20px',
-        marginTop: '5px',
-        marginBottom: '5px',
-    },
-    searchIcon: {
-        alignSelf: 'flex-end',
-        marginBottom: '5px'
-    },
-    searchInput: {
-        width: '200px',
-        margin: '5px'
-    }
-}))
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.currentTarget.value.toLowerCase());
+  };
+  useEffect(() => {
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon?limit=50`)
+      .then(function (response) {
+        const { results } = response.data;
+        let newResults = results.map(
+          (pokemon: pokemonDataType, index: number) => {
+            return {
+              id: index + 1,
+              name: pokemon.name,
+              sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                index + 1
+              }.png`,
+            };
+          }
+        );
 
-type pokemonDataType = {
-    [pokemonId: string]: {
-        id: number
-        name: string,
-        sprite: string
-    }
+        setPokemonData(newResults);
+        console.log(newResults);
+      });
+  }, []);
+  let sortedPokemons = pokemonData;
 
-}
+  if (sort) {
+    console.log(sort);
+    sortedPokemons = sortedPokemons.sort((a, b) => {
+      if (sort === "AtoZ") {
+        return a.name[0] > b.name[0] ? 1 : b.name[0] > a.name[0] ? -1 : 0;
+      } else {
+        return a.name[0] < b.name[0] ? 1 : b.name[0] < a.name[0] ? -1 : 0;
+      }
+    });
+    console.log(sortedPokemons);
+  }
 
-type PathParamsType = {}
-type PropsType = RouteComponentProps<PathParamsType> & OwnPropsType
-type OwnPropsType = {
-    history: History
-}
-
-export const Pokedex = withRouter((props: PropsType) => {
-
-    const classes = useStyles();
-    const [pokemonData, setPokemonData] = useState<pokemonDataType>({});
-    const [filter, setFilter] = useState<string>('');
-
-    const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setFilter((e.currentTarget.value).toLowerCase())
-    }
-    useEffect(() => {
-        axios
-            .get(`https://pokeapi.co/api/v2/pokemon?limit=500`)
-            .then(function (response) {
-                const {results} = response.data
-                let newPokemonData = {} as pokemonDataType;
-                results.forEach((pokemon: PokemonType, index: number) => {
-                    newPokemonData = {
-                        ...newPokemonData, [index + 1]: {
-                            id: index + 1,
-                            name: pokemon.name,
-                            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
-                        }
-                    }
-                })
-                setPokemonData(newPokemonData)
-            })
-    }, [])
-    const getPokemonCard = (pokemonId: number) => {
-
-        const {id, name, sprite} = pokemonData[pokemonId];
-        return (<Grid item xs={4} key={pokemonId}>
-            <Card onClick={() => props.history.push(`/${pokemonId}`)}>
-                <CardContent className={classes.cardContent}>
-                    <CardMedia
-                        className={classes.cardMedia}
-                        image={sprite}
-                        style={{width: '130px', height: '130px'}}
-                    />
-                    <Typography>{`${id}. ${toFirstCharUppercase(name)}`}</Typography>
-                </CardContent>
-            </Card>
-        </Grid>)
-    }
-
+  const GetPokemonCard = ({ pokemon }: TGeneratePokemonCard) => {
+    const { id, name, sprite } = pokemon;
     return (
-        <>
-            <AppBar position={'static'}>
-                <Toolbar>
-                    <div className={classes.searchContainer}>
-                        <SearchIcon className={classes.searchIcon}/>
-                        <TextField onChange={handleSearchChange} className={classes.searchInput} label='Pokemon'
-                                   variant='standard'/>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            {pokemonData ?
-                <Grid container spacing={2} className={classes.pokedexContainer}>
-                    {Object.keys(pokemonData).map((pokemonId) => {
-                        return pokemonData[+pokemonId].name.includes(filter) &&
-                            getPokemonCard(+pokemonId)
-                    })}
-                </Grid>
-                : <CircularProgress color={'primary'}/>}
-        </>
-    )
-})
+      <>
+        <Link to={`/${id}`  }>
+          <div className="pokedex-card">
+            <h4 className="pokedex-card-id">{`#${id}`}</h4>
+            <img src={sprite} alt="pokedex card" className="pokedex-card-img" />
+            <div className="pokedex-card-info">
+              <h2>{`${toFirstCharUppercase(name)}`}</h2>
+            </div>
+          </div>
+        </Link>
+      </>
+    );
+  };
+
+  return (
+    <>
+      <div className="navbar">
+        <div className="navbar-group">
+          <div className="navbar-logo">
+            <img src={Pokeball} alt="pokedex logo icon" className="logo-icon" />
+            <h1 className="logo-text">Pokédex</h1>
+          </div>
+          <div className="navbar-filter">
+            <button
+              className="navbar-filter"
+              onClick={() => {
+                setSort(
+                  sort === "" ? "AtoZ" : sort === "AtoZ" ? "ZtoA" : "AtoZ"
+                );
+              }}
+            >
+              <img src={Sort} alt="filter sort" />
+            </button>
+          </div>
+        </div>
+
+        <div className={"navbar-search"}>
+          <img src={search} alt="search icon" className="search-icon" />
+          <input
+            placeholder="search"
+            onChange={handleSearchChange}
+            value={filter}
+          />
+        </div>
+      </div>
+      {pokemonData ? (
+        <div className="pokedex">
+          <div className="wrapper">
+            {sortedPokemons.map((pokemon: pokemonDataType) => {
+              return (
+                pokemon.name.includes(filter) && (
+                  <GetPokemonCard pokemon={pokemon} key={pokemon.id} />
+                )
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <>Loading ...</>
+      )}
+    </>
+  );
+};
+
+
