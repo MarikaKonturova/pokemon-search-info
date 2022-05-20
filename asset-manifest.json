@@ -1,20 +1,26 @@
 {
   "files": {
-    "main.css": "/Pokemon-search-info/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/Pokemon-search-info/static/js/main.9d67a53a.chunk.js",
-    "main.js.map": "/Pokemon-search-info/static/js/main.9d67a53a.chunk.js.map",
+    "main.css": "/Pokemon-search-info/static/css/main.0c0b6d1e.chunk.css",
+    "main.js": "/Pokemon-search-info/static/js/main.8215907c.chunk.js",
+    "main.js.map": "/Pokemon-search-info/static/js/main.8215907c.chunk.js.map",
     "runtime-main.js": "/Pokemon-search-info/static/js/runtime-main.4c706f2c.js",
     "runtime-main.js.map": "/Pokemon-search-info/static/js/runtime-main.4c706f2c.js.map",
-    "static/js/2.fdf7ca88.chunk.js": "/Pokemon-search-info/static/js/2.fdf7ca88.chunk.js",
-    "static/js/2.fdf7ca88.chunk.js.map": "/Pokemon-search-info/static/js/2.fdf7ca88.chunk.js.map",
+    "static/js/2.cdea3c74.chunk.js": "/Pokemon-search-info/static/js/2.cdea3c74.chunk.js",
+    "static/js/2.cdea3c74.chunk.js.map": "/Pokemon-search-info/static/js/2.cdea3c74.chunk.js.map",
     "index.html": "/Pokemon-search-info/index.html",
-    "static/css/main.6dea0f05.chunk.css.map": "/Pokemon-search-info/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.fdf7ca88.chunk.js.LICENSE.txt": "/Pokemon-search-info/static/js/2.fdf7ca88.chunk.js.LICENSE.txt"
+    "static/css/main.0c0b6d1e.chunk.css.map": "/Pokemon-search-info/static/css/main.0c0b6d1e.chunk.css.map",
+    "static/js/2.cdea3c74.chunk.js.LICENSE.txt": "/Pokemon-search-info/static/js/2.cdea3c74.chunk.js.LICENSE.txt",
+    "static/media/Pokeball.7393e916.svg": "/Pokemon-search-info/static/media/Pokeball.7393e916.svg",
+    "static/media/Sort.d494d943.svg": "/Pokemon-search-info/static/media/Sort.d494d943.svg",
+    "static/media/arrowLeft.fede18e5.svg": "/Pokemon-search-info/static/media/arrowLeft.fede18e5.svg",
+    "static/media/height.5245597d.svg": "/Pokemon-search-info/static/media/height.5245597d.svg",
+    "static/media/search.860a5fed.svg": "/Pokemon-search-info/static/media/search.860a5fed.svg",
+    "static/media/weight.5b6ae880.svg": "/Pokemon-search-info/static/media/weight.5b6ae880.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.4c706f2c.js",
-    "static/js/2.fdf7ca88.chunk.js",
-    "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.9d67a53a.chunk.js"
+    "static/js/2.cdea3c74.chunk.js",
+    "static/css/main.0c0b6d1e.chunk.css",
+    "static/js/main.8215907c.chunk.js"
   ]
 }
