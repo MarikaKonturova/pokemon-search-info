@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.72333b5a.css",
-    "main.js": "/static/js/main.ed39429c.js",
-    "static/media/PokeWeight.svg": "/static/media/PokeWeight.5b6ae8803dfeb3ad3f8547213444e8c5.svg",
+    "main.js": "/static/js/main.39d20761.js",
+    "static/media/Pokeweight.svg": "/static/media/Pokeweight.5b6ae8803dfeb3ad3f8547213444e8c5.svg",
     "static/media/Sort.svg": "/static/media/Sort.d494d943e56657f39907206ac3e4e6ab.svg",
     "static/media/Pokeball.svg": "/static/media/Pokeball.7393e916407b68e0a1b0992a08a6d2a6.svg",
     "static/media/search.svg": "/static/media/search.860a5fedaa8999143a8d2488ff1f4d74.svg",
     "index.html": "/index.html",
     "static/media/arrowLeft.svg": "/static/media/arrowLeft.fede18e5d025485b9a112342f5fc52b3.svg",
-    "static/media/PokeHeight.svg": "/static/media/PokeHeight.5245597dc6c3ec16ae60c7322d9b7b7d.svg",
+    "static/media/Pokeheight.svg": "/static/media/Pokeheight.5245597dc6c3ec16ae60c7322d9b7b7d.svg",
     "main.72333b5a.css.map": "/static/css/main.72333b5a.css.map",
-    "main.ed39429c.js.map": "/static/js/main.ed39429c.js.map"
+    "main.39d20761.js.map": "/static/js/main.39d20761.js.map"
   },
   "entrypoints": [
     "static/css/main.72333b5a.css",
-    "static/js/main.ed39429c.js"
+    "static/js/main.39d20761.js"
   ]
 }
