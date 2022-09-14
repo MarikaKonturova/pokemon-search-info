@@ -1,26 +1,19 @@
 {
   "files": {
-    "main.css": "/pokemon-search-info/static/css/main.0c0b6d1e.chunk.css",
-    "main.js": "/pokemon-search-info/static/js/main.6dff28fb.chunk.js",
-    "main.js.map": "/pokemon-search-info/static/js/main.6dff28fb.chunk.js.map",
-    "runtime-main.js": "/pokemon-search-info/static/js/runtime-main.7be8817d.js",
-    "runtime-main.js.map": "/pokemon-search-info/static/js/runtime-main.7be8817d.js.map",
-    "static/js/2.287ae54e.chunk.js": "/pokemon-search-info/static/js/2.287ae54e.chunk.js",
-    "static/js/2.287ae54e.chunk.js.map": "/pokemon-search-info/static/js/2.287ae54e.chunk.js.map",
-    "index.html": "/pokemon-search-info/index.html",
-    "static/css/main.0c0b6d1e.chunk.css.map": "/pokemon-search-info/static/css/main.0c0b6d1e.chunk.css.map",
-    "static/js/2.287ae54e.chunk.js.LICENSE.txt": "/pokemon-search-info/static/js/2.287ae54e.chunk.js.LICENSE.txt",
-    "static/media/Pokeball.7393e916.svg": "/pokemon-search-info/static/media/Pokeball.7393e916.svg",
-    "static/media/Sort.d494d943.svg": "/pokemon-search-info/static/media/Sort.d494d943.svg",
-    "static/media/arrowLeft.fede18e5.svg": "/pokemon-search-info/static/media/arrowLeft.fede18e5.svg",
-    "static/media/height.5245597d.svg": "/pokemon-search-info/static/media/height.5245597d.svg",
-    "static/media/search.860a5fed.svg": "/pokemon-search-info/static/media/search.860a5fed.svg",
-    "static/media/weight.5b6ae880.svg": "/pokemon-search-info/static/media/weight.5b6ae880.svg"
+    "main.css": "/static/css/main.72333b5a.css",
+    "main.js": "/static/js/main.ae3bfe05.js",
+    "static/media/weight.svg": "/static/media/weight.5b6ae8803dfeb3ad3f8547213444e8c5.svg",
+    "static/media/Sort.svg": "/static/media/Sort.d494d943e56657f39907206ac3e4e6ab.svg",
+    "static/media/Pokeball.svg": "/static/media/Pokeball.7393e916407b68e0a1b0992a08a6d2a6.svg",
+    "static/media/search.svg": "/static/media/search.860a5fedaa8999143a8d2488ff1f4d74.svg",
+    "index.html": "/index.html",
+    "static/media/arrowLeft.svg": "/static/media/arrowLeft.fede18e5d025485b9a112342f5fc52b3.svg",
+    "static/media/height.svg": "/static/media/height.5245597dc6c3ec16ae60c7322d9b7b7d.svg",
+    "main.72333b5a.css.map": "/static/css/main.72333b5a.css.map",
+    "main.ae3bfe05.js.map": "/static/js/main.ae3bfe05.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.7be8817d.js",
-    "static/js/2.287ae54e.chunk.js",
-    "static/css/main.0c0b6d1e.chunk.css",
-    "static/js/main.6dff28fb.chunk.js"
+    "static/css/main.72333b5a.css",
+    "static/js/main.ae3bfe05.js"
   ]
 }
