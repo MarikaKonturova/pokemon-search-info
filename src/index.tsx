@@ -1,15 +1,19 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App";
-import {  HashRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { pokedexApi as api } from "./services/pokedexApi";
+import { HashRouter } from "react-router-dom";
 
-ReactDOM.render(
-  <HashRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </HashRouter>,
-  document.getElementById("root")
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <HashRouter>
+      <ApiProvider api={api}>
+        <App />
+      </ApiProvider>
+    </HashRouter>
+  </React.StrictMode>
 );

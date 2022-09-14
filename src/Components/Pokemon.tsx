@@ -1,78 +1,24 @@
-import React, { useEffect, useState } from "react";
 import { toFirstCharUppercase } from "../Constans";
-import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import { IPokemon } from "../types";
 import arrowLeft from "../assets/icons/arrowLeft.svg";
 import Pokeball from "../assets/icons/Pokeball.svg";
 import height from "../assets/icons/height.svg";
 import weight from "../assets/icons/weight.svg";
 import ProgressBar from "./ProgressBar";
+import { useGetPokemonQuery } from "../services/pokedexApi";
 
 export const Pokemon = () => {
   const { pokemonId } = useParams();
-  const [pokemon, setPokemon] = useState<IPokemon | null>(null);
-  const [initialize, setInitialize] = useState<Boolean>(false);
   const pokemonStats = ["HP", "ATK", "DEF", "SATK", "SDEF", "SPD"];
+  const { data: pokemon, isFetching } = useGetPokemonQuery(pokemonId ?? "2");
+  console.log(pokemon);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
-        );
-        const { data } = response;
-        const fullImageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
-
-        const abMap = (array: any) => {
-          let abilities = [];
-          for (const el of array) {
-            abilities.push(el.ability.name);
-          }
-          return abilities;
-        };
-        const stMap = (array: any) => {
-          let stats = [];
-          for (const el of array) {
-            stats.push(el.base_stat);
-          }
-          return stats;
-        };
-        const tyMap = (array: any) => {
-          let types = [];
-          for (const el of array) {
-            types.push(el.type.name);
-          }
-          return types;
-        };
-
-        const newPokemon: IPokemon = {
-          name: data.name,
-          id: data.id,
-          abilities: abMap(data.abilities),
-          height: data.height,
-          weight: data.weight,
-          stats: stMap(data.stats),
-          types: tyMap(data.types),
-          fullImageUrl,
-        };
-
-        console.log(newPokemon);
-        setPokemon(newPokemon);
-        setInitialize(true);
-      } catch (error) {
-        setPokemon(null);
-      }
-    })();
-  }, [pokemonId]);
-
-  if (!initialize) {
+  if (isFetching) {
     return <>Loading ..</>;
   }
   return (
     <>
-      {pokemon === null && <h1> Pokemon not found </h1>}
-      {pokemon !== undefined && pokemon && (
+      {pokemon && (
         <div key={pokemon.id} className={`pokemon ${pokemon.types[0]}`}>
           <img src={Pokeball} alt="" className="pokemon-decor" />
           <div className="pokemon-title">
@@ -89,6 +35,7 @@ export const Pokemon = () => {
               style={{ width: "300px", height: "300px" }}
               src={pokemon.fullImageUrl}
               className="pokemon-img"
+              alt="pokemon avatar"
             />
             <div className="pokemon-types">
               {pokemon.types.map((type) => {
@@ -142,12 +89,16 @@ export const Pokemon = () => {
 
                 <div className="stats-bar">
                   {pokemon.stats.map((st, i) => (
-                    <p key={i}>{+st<100? '0': ''}{st}</p>
+                    <p key={i}>
+                      {+st < 100 ? "0" : ""}
+                      {st}
+                    </p>
                   ))}
                 </div>
                 <div className="stats-bar">
                   {pokemon.stats.map((st, i) => (
-                    <ProgressBar key={i}
+                    <ProgressBar
+                      key={i}
                       className={`${pokemon.types[0]}`}
                       completed={st}
                     />

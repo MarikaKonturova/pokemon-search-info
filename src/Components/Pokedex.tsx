@@ -1,7 +1,5 @@
-import React, { ChangeEvent, useCallback, useEffect, useState } from "react";
-
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { toFirstCharUppercase } from "../Constans";
-import axios from "axios";
 import { pokemonDataType, TGeneratePokemonCard } from "../types";
 import { Link } from "react-router-dom";
 import Pokeball from "../assets/icons/Pokeball.svg";
@@ -11,43 +9,22 @@ import { useGetPokedexQuery } from "../services/pokedexApi";
 
 export const Pokedex = () => {
   const [sort, setSort] = useState<"ZtoA" | "AtoZ" | "">("");
-  console.log("rerender");
-  const [pokemonData, setPokemonData] = useState<pokemonDataType[]>([]);
   const [filter, setFilter] = useState<string>("");
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilter(e.currentTarget.value.toLowerCase());
   };
-
-  const { data, isFetching } = useGetPokedexQuery("100");
-
-  useEffect(() => {
-   if (data) {
-      const  {results}  = data; 
-    let newResults = results.map((pokemon: pokemonDataType, index: number) => {
-      return {
-        id: index + 1,
-        name: pokemon.name,
-        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-          index + 1
-        }.png`,
-      };
-    });
-    setPokemonData(newResults);
-    console.log(newResults);}
-  }, [data]);
-  let sortedPokemons = pokemonData;
+  const { data: pokemonData, isFetching } = useGetPokedexQuery("100");
+  let sortedPokemons = pokemonData!;
 
   if (sort) {
-    console.log(sort);
-    sortedPokemons = sortedPokemons.sort((a, b) => {
+    sortedPokemons = [...sortedPokemons].sort((a, b) => {
       if (sort === "AtoZ") {
         return a.name[0] > b.name[0] ? 1 : b.name[0] > a.name[0] ? -1 : 0;
       } else {
         return a.name[0] < b.name[0] ? 1 : b.name[0] < a.name[0] ? -1 : 0;
       }
     });
-    console.log(sortedPokemons);
   }
 
   const GetPokemonCard = ({ pokemon }: TGeneratePokemonCard) => {
