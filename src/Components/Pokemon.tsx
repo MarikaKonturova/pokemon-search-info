@@ -2,11 +2,10 @@ import { toFirstCharUppercase } from "../Constans";
 import { Link, useParams } from "react-router-dom";
 import arrowLeft from "../assets/icons/arrowLeft.svg";
 import Pokeball from "../assets/icons/Pokeball.svg";
-import height from "../assets/icons/height.svg";
-import weight from "../assets/icons/weight.svg";
+import Pokeheight from "../assets/icons/Pokeheight.svg";
+import Pokeweight from "../assets/icons/Pokeweight.svg";
 import ProgressBar from "./ProgressBar";
 import { useGetPokemonQuery } from "../services/pokedexApi";
-
 export const Pokemon = () => {
   const { pokemonId } = useParams();
   const pokemonStats = ["HP", "ATK", "DEF", "SATK", "SDEF", "SPD"];
@@ -50,7 +49,7 @@ export const Pokemon = () => {
             <div className={`about-groups `}>
               <div className="about-group">
                 <div className="about-group-group">
-                  <img src={height} alt="pokemon weight" />
+                  <img src={Pokeheight} alt="pokemon weight" />
                   <h2>{pokemon.height} cm</h2>
                 </div>
                 <p>Height</p>
@@ -58,7 +57,7 @@ export const Pokemon = () => {
               <div className="vl"></div>
               <div className="about-group">
                 <div className="about-group-group">
-                  <img src={weight} alt="pokemon weight" />
+                  <img src={Pokeweight} alt="pokemon weight" />
                   <h2>{pokemon.weight} kg</h2>
                 </div>
                 <p>Weight</p>
